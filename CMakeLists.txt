@@ -5,8 +5,11 @@
 cmake_minimum_required(VERSION 3.5)
 idf_build_get_property(target IDF_TARGET)
 
-if(ARDUINO_ARCH_ESP32 OR CONFIG_ESP32_HUB75_USE_GFX)
-    list(APPEND build_dependencies arduino Adafruit-GFX-Library)
+if(CONFIG_ESP32_HUB75_USE_GFX)
+    list(APPEND build_dependencies Adafruit-GFX-Library)
+    if(ARDUINO_ARCH_ESP32)
+        list(APPEND build_dependencies arduino)
+    endif()
 else()
     list(APPEND build_dependencies esp_lcd driver)
 endif()
@@ -65,3 +68,4 @@ endif()
 # https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-I2S-DMA/blob/master/doc/BuildOptions.md
 
 project(ESP32-HUB75-MatrixPanel-I2S-DMA)
+
